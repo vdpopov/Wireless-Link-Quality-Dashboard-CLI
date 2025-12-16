@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wifi-monitor-cli"
+version = "0.1.0"
+description = "Terminal-based WiFi link and latency monitor"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Vadim P."}
+]
+
+dependencies = [
+    "rich>=13.0",
+    "numpy>=1.20",
+]
+
+[project.scripts]
+wifi-monitor-cli = "wifi_monitor_cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["wifi_monitor_cli*"]

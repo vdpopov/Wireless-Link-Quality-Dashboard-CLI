@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+
+# IDEs / editors
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Qt / PyQt
+*.ui~
+
+# Local tooling
+.claude/
