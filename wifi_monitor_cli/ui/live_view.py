@@ -97,24 +97,31 @@ class LiveView:
 
         window_seconds = config.current_window
 
+        # Snapshot the arrays to avoid race conditions during rendering
+        time_arr = config.time_data
+        signal_arr = config.signal_data
+        rx_arr = config.rx_rate_data
+        tx_arr = config.tx_rate_data
+
         if window_seconds is None:
             # Show all data
-            mask = np.ones(len(config.time_data), dtype=bool)
+            mask = np.ones(len(time_arr), dtype=bool)
         else:
             cutoff = now - window_seconds
-            mask = config.time_data >= cutoff
+            mask = time_arr >= cutoff
 
-        time_data = config.time_data[mask]
-        signal_data = config.signal_data[mask]
-        rx_data = config.rx_rate_data[mask]
-        tx_data = config.tx_rate_data[mask]
+        mask_len = len(mask)
+        time_data = time_arr[mask]
+        signal_data = signal_arr[mask] if len(signal_arr) == mask_len else np.array([])
+        rx_data = rx_arr[mask] if len(rx_arr) == mask_len else np.array([])
+        tx_data = tx_arr[mask] if len(tx_arr) == mask_len else np.array([])
 
         # Get ping data for each host (ensure same length as time_data)
         hosts_data = []
         for host_info in config.ping_hosts:
             ping_data = host_info["data"]
-            # Ensure ping data array matches time_data length before masking
-            if len(ping_data) == len(config.time_data):
+            # Ensure ping data array matches mask length before masking
+            if len(ping_data) == mask_len:
                 host_data = ping_data[mask]
             else:
                 host_data = np.array([])
