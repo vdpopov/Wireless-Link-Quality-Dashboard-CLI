@@ -2,6 +2,8 @@
 
 A terminal-based WiFi link and latency monitor for Linux. Real-time visualization of WiFi signal strength, ping latency, and channel congestion - all in your terminal.
 
+![Live monitoring dashboard](main.png)
+
 ## Features
 
 - **Live Monitoring**
